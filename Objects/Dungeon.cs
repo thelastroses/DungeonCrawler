@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Dungeon 
+public class Dungeon
 {
     public Dungeon()
     {
@@ -21,5 +21,7 @@ public class Dungeon
         r4.addExit("east", r3);
         r5.addExit("west", r3);
         r6.addExit("south", r3);
+
+        r1.setPlayer(Core.thePlayer);
     }
 }
