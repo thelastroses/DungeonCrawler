@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Inhabitant
@@ -36,7 +37,14 @@ public abstract class Inhabitant
     }
 
 
-
+    public void takeDamage(int damage)
+    {
+        this.currHp = this.currHp - damage;
+        if(this.currHp < 0)
+        {
+            currHp = 0;
+        }
+    }
     public void setCurrHp(int hp)
     {
         this.currHp = hp;
