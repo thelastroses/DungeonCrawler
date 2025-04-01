@@ -39,7 +39,7 @@ public class Fight
 
 
 
-    public void startFight(GameObject playerGameObject, GameObject monsterGameObject)
+    public void startFight(GameObject playerGameObject, GameObject monsterGameObject, bool isPowerAttack)
     {
         //should have the attacker and defender fight each until one of them dies.
         //the attacker and defender should alternate between each fight round and
@@ -52,10 +52,26 @@ public class Fight
 
 
         int mayAttack = UnityEngine.Random.Range(10, 20);
+
+        if (isPowerAttack && attacker is Player)
+        {
+            mayAttack = (int)(mayAttack * 0.75);
+            Debug.Log(attacker.getName() + " did a Power Attack! attack roll reduced by 25%");
+        }
+
         if (mayAttack >= defender.getAC())
         {
             int damage = UnityEngine.Random.Range(5, 15);
+
+            if (isPowerAttack && attacker is Player)
+            {
+                damage = (int)(damage * 1.5);
+                Debug.Log(attacker.getName() + " did a Power Attack! attack hits 50% harder");
+            }
+
             this.defender.takeDamage(damage);
+
+
 
             Debug.Log(this.attacker.getName() + " attacks " + this.defender.getName() + " for " + damage);
 
@@ -90,5 +106,19 @@ public class Fight
     {
         PlayerHealth.text = "Player Health: " + Core.thePlayer.getCurrHP();
         MonsterHealth.text = "Monster Health: " + Core.theMonster.getCurrHP();
+    }
+
+    public void HealPlayer()
+    {
+        double health = Core.thePlayer.getMaxHp() * .25;
+        double newHealth = health + Core.thePlayer.getCurrHP();
+
+        if (newHealth <= Core.thePlayer.getMaxHp())
+        {
+            Core.thePlayer.setCurrHp((int)newHealth);
+        }
+
+
+        Debug.Log("H was pressed" + " new health: " + health + "max health: " + Core.thePlayer.getMaxHp() + "curr health: " + Core.thePlayer.getCurrHP());
     }
 }

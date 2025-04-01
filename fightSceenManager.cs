@@ -30,9 +30,22 @@ public class fightSceneManager : MonoBehaviour
 
         if (timer >= 2f)
         {
-            theFight.startFight(player, monster);
+            theFight.startFight(player, monster, false);
             timer = 0f;
+
         }
+        
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            theFight.HealPlayer();
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            theFight.startFight(player, monster, true);
+        }
+        
         theFight.Health();
     }
 }
